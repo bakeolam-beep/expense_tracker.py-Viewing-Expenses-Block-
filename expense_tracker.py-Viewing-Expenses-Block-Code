@@ -1,0 +1,26 @@
+import csv
+
+FILE_NAME = "expenses.csv"
+
+def view_expenses():
+    try:
+        with open(FILE_NAME, "r", newline="") as file:
+            reader = csv.reader(file)
+            rows = list(reader)
+
+            # Remove header
+            if len(rows) <= 1:
+                print("No expenses recorded yet.")
+                return
+
+            expenses = rows[1:]
+
+            print("\nView Expenses")
+            print("Date | Category | Amount | Description")
+            print("-" * 50)
+
+            for row in expenses:
+                print(f"{row[0]} | {row[1]} | {row[2]} | {row[3]}")
+
+    except FileNotFoundError:
+        print("No expenses file found. Please add expenses first.")
